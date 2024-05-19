@@ -78,4 +78,153 @@ admin_password=signes2407
 ————————————————————————————————————
 "changed": false, "msg": "Configuration error - kwargs_from_env() got an unexpected keyword argument 'ssl_version'"}
 
-pip install docker==6.1.3
+pip install docker==6.1.
+
+-------------------------------------------------
+------------------------------------------------
+************************************************
+
+Ansible kurulumu
+
+sudo apt-get update
+sudo apt install ansible -y
+ansible --version
+
+
+Ansible Yapılandırması
+
+/etc/ansible/ dizinini altındaki hosts dosyasını düzenliyoruz.
+Bu dosya da ansible ile yöneteceğimiz sunucular için kullanıcı adı,şifre, bağlantı yöntemi vb. gibi
+
+vi /etc/ansible/hosts
+
+Örnek dosyamızın içeriği aşağıdaki gibidir ben bu dosyayı editlemeden önce bir kopyasını alarak yedekleyeceğim 
+böylece buradaki parametrelerde birine ihtiyaç duyarsak daha sonra orijinal dosyadan kontrol sağlayabiliriz.
+
+cp /etc/ansible/hosts /etc/ansible/hosts_bck
+
+dosyamı açıyorum ve içeriğini silerek aşağıdaki formatta kendi sunucularımı [tag] başlığı altında gruplayarak giriyorum.
+
+vi /etc/ansible/hosts
+
+Ansible ile yönetilecek (Client) Sunucuların yapılandırması?
+SSH Key’i aktarma Metot
+
+** Ansible Serverda yapılacak **
+Ben Ansible sunucumda kurulumu root hesabı ile yaptım bu yüzden key /root dizininde bulunuyor.
+
+Ansible sunucudan keyi almak için aşağıdaki komutu çalıştırıyoruz.
+
+cat /root/.ssh/id_rsa.pub
+
+Şimdi Ansible sunucumdan gerekli bilgileri aldım artık bu key i Client(192.168.1.52) makineme aktarabilirim.
+
+** Client Makinede Yapılacak **
+Client makineme bağlanıyorum ve aşağıdaki komutu çalıştırıyorum. Bu komutla keyimiz makineye aktarılmış olacak.
+
+Ansible makineden aldığınız keyi “” işaretleri arasına yapıştırınız.
+
+echo " " >> ~/.ssh/authorized_keys
+
+ya da dosyanızın içerisinde “nano ~/.ssh/authorized_key” ile gidip manual şekilde de kopyalayabilirsiniz.
+
+cat ~/.ssh/authorized_keys
+
+yada dizine giredek “authorized_key” dosyasını editleyerek kontrol edebilirsiniz.
+
+#cd ~/.ssh/
+#vi authorized_keys
+
+
+** Ansible Serverda yapılacak **
+Bu işlemin ansible sunucusunda da onaylanması için Ansible Sunucumda basit bir komut çalıştırıyorum.
+
+ansible 192.168.1.52 -m ping
+
+
+Bağlantı Testlerinin yapılması
+Envanter dosyamızı sunucularımızı içerecek şekilde ayarladıktan sonra, Ansible’ın bu sunuculara bağlanıp bağlanamadığını ve SSH aracılığıyla komutları çalıştırıp çalıştırmadığını kontrol etmenin zamanı geldi.
+
+Bu kılavuz için, Ubuntu root hesabını kullanacağız çünkü bu genellikle yeni oluşturulan sunucularda varsayılan olarak kullanılabilen tek hesaptır. Ansible ana bilgisayarlarınızda zaten oluşturulmuş normal bir sudo kullanıcısı varsa, bunun yerine bu hesabı kullanmanız önerilir.
+
+-Uzak sistem kullanıcısını belirtmek için “-u ”değişkeni kullanabilirsiniz . Ansible makinenizden aşağıdaki komutu çalıştırın.
+
+ansible linux -m ping -u root
+
+------Ansible AWX GUI Kurulumu-----
+
+Ansible AWX kurulum adımlarına geçelim;
+Aşağıdaki komutlar ile güncelleme işlemlerimizi yapıyoruz.
+
+$sudo apt update -y
+$sudo apt upgrade -y
+
+Docker Kurulumu
+Aşağıdaki komutla Docker engine kurulumunu yapıyoruz.
+
+sudo apt install docker docker.io -y
+Versiyon kontrolü yapıyoruz.
+
+docker version
+
+Docker compose kurulumu
+Kurulum için aşağıdaki komutları sırası ile çalıtırıp gerekli python ve pip3 uygulamalarını yüklüyoruz.
+
+$sudo apt install python-setuptools -y
+$sudo apt install python3-pip -y
+$sudo pip3 install docker-compose
+Versiyon kontrolü yapıyoruz.
+
+$docker-compose version
+
+Şimdi oturum açmış olan kullanıcılar için docker grubuna erişim vermeniz gerekiyor. Terminalinizde aşağıdaki komutu yürütün:
+
+$sudo usermod -aG docker $USER
+$sudo systemctl restart docker
+Docker compose versiyonu ile eşleşen modülü kuruyoruz.
+
+$docker-compose version
+$sudo pip3 install docker-compose==1.29.2
+Node.js ve NPM (Node Package Manager) Kurulumu
+$sudo apt install -y nodejs npm
+$sudo npm install npm --global
+Pwgen Kurulumu
+Bazı ekstra paketlenmiş vim, git ve pwgen yüklemeniz gerekebilir. Ek gerekli paketleri kurmak için aşağıdaki komutu yürütün:
+
+$sudo apt install -y python3-pip git pwgen vim
+
+AWX Kurulumu
+Kurulum için wget ile githubdan AWX dosyamızı indiriyoruz.
+
+$sudo wget https://github.com/ansible/awx/archive/17.1.0.zip
+$unzip 17.1.0.zip
+Şimdi AWX indirdiğimiz dizine gidiyoruz.
+
+cd awx-17.1.0/installer
+pwgen’i şu şekilde kullanarak bir gizli anahtar oluşturuyoruz
+
+pwgen -N 1 -s 30
+
+Bir secret key oluşturduk Şimdi envanter dosyasını, daha önce admin_password ve secret_key create yerine geçen bir metin düzenleyiciyle değiştireceğiz.
+AWX web arayüzünde daha sonra oturum açmak gerekeceğinden vereceğiniz admin&password’ü unutmayın.
+
+Aşağıdaki komut ile dosyamızı editliyoruz (bu bölümü copy paste yapınca metin içeriği boş gelebiliyor eğer gelirse nano dan sonra i+tab tuşu ile metni otomatik çağırınız.)
+
+vi inventory
+
+Burada aşağıdaki alanları bularak kullanıcı adı parola ve secret key bölümlerini düzenliyoruz.
+
+Yapılan değişikliği kontrol etmek için aşağıdaki komutu çalıştırabilirsiniz.
+
+cat inventory | grep -v '^#' | sed '/^\s*#/d;/^\s*$/d'
+
+Şimdi, docker kapsayıcı görüntülerini indiren ve bunları buna göre ayarlayan yml playbook’u çalıştırıyoruz. Ansible playbook’u yetki hatası almadan uygulamak için aşağıdaki komutu “sudo” ile birlikte çalıştırın.
+
+Bu bölüm makinenizin performansına göre 10-20 dk arası sürebilmektedir. İşlem tamamlanmadan konsol ekranını kapatmayınız.
+
+$sudo ansible-playbook -i inventory install.yml
+Playbook, gerekli AWX containerlarını çeker ve docker üzerinde containerları servis olarak çalıştırır. Çalışan AWX containerlarını bulmak için aşağıdaki komutu çalıştırın:
+
+sudo docker ps -a
+
+AWX web, 80 numaralı bağlantı noktasında çalışıyor. Artık tarayıcınıza gidebilir ve AWX GUI’ye erişmek için http://server-ipadress yazabilirsiniz.
