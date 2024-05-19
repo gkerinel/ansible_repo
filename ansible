@@ -1,0 +1,81 @@
+Vagrant:
+
+sudo systemctl status docker
+
+docker -v
+
+Docker'ı başlangıçta otomatik olarak çalışacak şekilde ayarlayın:
+
+sudo systemctl enable docker
+
+
+TrXCqwFrWBnL5mn6P0OMjQrXvc52eA
+
+Vi editor
+
+Yazmak için: i (insert)
+Yazdıktan sonra kaydedip çıkmak için:     esc + :wq
+
+curl ifconfig.me
+
+ansible-playbook -i inventory install.yml
+
+sudo docker ps -a
+
+ssh-keygen
+
+SHA256:fYFMpDriqa4bYAMNq6IiHyff+GdA2KmoehOj4WbfKFM vagrant@vagrant
+
+192.168.1.51
+
+192.168.1.52
+
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC09TOY7uERfh2SSjc0DHDtGFwZ7RQnJPNN6notwkAPuaL+DEPHMjRFxzsM5MNQ1uromMg4Ah3CPUfbGtPQ/nSR+XULDuUMvqB/xFTDdPtr+LXcu07g1cov+/dYoIf4VaBWnVMOG2rw8dIHe1O1wwFIhfG8FmJD87jJXACcM9BuUTG7ubF6yH/V36xOzmr8zXPfoaT8e4R2FmFqrMRH573p+usujbmHtwZQ55jU++1w9dq3qWgU+SxRWz6q36CfrkfyKZXbD7RnwRynVY0OEALafyqS8o9YMYEAt1xAqeKdMlUOGhSJEJMOnG7riSVR27yMj9Er6c5DOWwU3heN1Xt+U0rvQ92y75RbIg8huCteCmjJy+0IKCqhYo/+0BDosnRcQGWPiJHBks/tAQ67/clh3p9lMqrjNskdnSwaM1b/Ib4+xccbk5A6UtT0y4rMV0Of9bBp68DqAchIDbXVo1WNErv+h1rqK8zwOklvV7aJl6PD4P7KTux1KQNGi+7bXhk= vagrant@vagrant
+
+
+
+ifconfig ———ip no bulma
+
+To be able to use the ifconfig command, you have to install the net-tools package first.To be able to use the ifconfig command, you have to install the net-tools package first.
+
+sudo apt install net-tools
+
+Güncellemeler için:  apt-get update
+
+
+
+
+
+echo " ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC09TOY7uERfh2SSjc0DHDtGFwZ7RQnJPNN6notwkAPuaL+DEPHMjRFxzsM5MNQ1uromMg4Ah3CPUfbGtPQ/nSR+XULDuUMvqB/xFTDdPtr+LXcu07g1cov+/dYoIf4VaBWnVMOG2rw8dIHe1O1wwFIhfG8FmJD87jJXACcM9BuUTG7ubF6yH/V36xOzmr8zXPfoaT8e4R2FmFqrMRH573p+usujbmHtwZQ55jU++1w9dq3qWgU+SxRWz6q36CfrkfyKZXbD7RnwRynVY0OEALafyqS8o9YMYEAt1xAqeKdMlUOGhSJEJMOnG7riSVR27yMj9Er6c5DOWwU3heN1Xt+U0rvQ92y75RbIg8huCteCmjJy+0IKCqhYo/+0BDosnRcQGWPiJHBks/tAQ67/clh3p9lMqrjNskdnSwaM1b/Ib4+xccbk5A6UtT0y4rMV0Of9bBp68DqAchIDbXVo1WNErv+h1rqK8zwOklvV7aJl6PD4P7KTux1KQNGi+7bXhk= vagrant@vagrant" >> ~/.ssh/authorized_keys
+
+[webservers]
+
+——————————————————————————————————————————
+AttributeError: module 'lib' has no attribute 'X509_V_FLAG_NOTIFY_POLICY'
+
+sudo apt remove python3-pip
+wget https://bootstrap.pypa.io/get-pip.py
+sudo python3 get-pip.py
+
+And then after a reboot
+
+pip install pyopenssl --upgrade
+
+————————————————————————————————————————
+
+unzip: command not found
+
+sudo apt-get install zip unzip
+
+———————————————————————————————————————
+Pwgen key
+
+6zeTnMo2UfNHfMShHs5qbpEIVZOuKs
+admin_user=gker
+admin_password=signes2407
+
+————————————————————————————————————
+"changed": false, "msg": "Configuration error - kwargs_from_env() got an unexpected keyword argument 'ssl_version'"}
+
+pip install docker==6.1.3
