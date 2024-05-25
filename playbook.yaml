@@ -1,0 +1,9 @@
+---
+- name: Create a new file on the client server
+  hosts: linux
+  tasks:
+
+    - name: Create a new file
+      copy:
+        content: "This is a new file created by Ansible."
+        dest: /home/vagrant/new_file3.txt
